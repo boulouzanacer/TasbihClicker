@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Settings } from "lucide-react";
 import { Dhikr } from "@shared/schema";
 import { DhikrTab } from "./dhikr-tab";
 import { StatsPanel } from "./stats-panel";
+import { SettingsModal } from "./settings-modal";
 import { useCounterStorage } from "@/hooks/use-counter-storage";
+import { useTranslation } from "@/hooks/use-translation";
 
 export function TasbihCounter() {
   const { data, incrementCounter, resetCounter, setCurrentDhikr, nextSet } = useCounterStorage();
   const [isCounterPressed, setIsCounterPressed] = useState(false);
+  const { t } = useTranslation();
 
   const currentDhikrData = data.counters[data.currentDhikr];
   const dhikrEntries = Object.entries(data.counters);
@@ -25,7 +27,7 @@ export function TasbihCounter() {
   };
 
   const handleResetClick = () => {
-    if (window.confirm('Reset counter to 0?')) {
+    if (window.confirm(t('resetConfirm'))) {
       resetCounter(data.currentDhikr);
     }
   };
@@ -44,13 +46,8 @@ export function TasbihCounter() {
       {/* Header */}
       <header className="bg-card shadow-sm border-b border-border px-4 py-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-foreground">Digital Tasbih</h1>
-          <button 
-            data-testid="settings-button"
-            className="p-2 rounded-lg bg-muted hover:bg-accent hover:text-accent-foreground transition-colors"
-          >
-            <Settings className="w-5 h-5" />
-          </button>
+          <h1 className="text-xl font-semibold text-foreground">{t('digitalTasbih')}</h1>
+          <SettingsModal />
         </div>
       </header>
 
@@ -80,7 +77,7 @@ export function TasbihCounter() {
             {currentDhikrData.translation}
           </p>
           <p className="text-sm text-muted-foreground" data-testid="dhikr-meaning">
-            "{currentDhikrData.meaning}"
+            "{t(`dhikrMeanings.${data.currentDhikr}`)}"
           </p>
         </div>
 
@@ -109,7 +106,7 @@ export function TasbihCounter() {
           
           <p className="text-sm text-muted-foreground">
             <span data-testid="progress-text">
-              {currentDhikrData.count} of {currentDhikrData.targetCount} complete
+              {currentDhikrData.count} {t('of')} {currentDhikrData.targetCount} {t('complete')}
             </span>
           </p>
         </div>
@@ -128,7 +125,7 @@ export function TasbihCounter() {
               <svg className="w-12 h-12 mb-2" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z"/>
               </svg>
-              <span className="text-sm font-medium">TAP</span>
+              <span className="text-sm font-medium">{t('tap')}</span>
             </div>
           </button>
         </div>
@@ -140,24 +137,24 @@ export function TasbihCounter() {
             onClick={handleResetClick}
             className="px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium hover:bg-secondary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
           >
-            Reset
+            {t('reset')}
           </button>
           <button 
             data-testid="next-set-button"
             onClick={handleNextSet}
             className="px-6 py-3 bg-accent text-accent-foreground rounded-lg font-medium hover:bg-accent/90 transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
           >
-            Next Set
+            {t('nextSet')}
           </button>
         </div>
 
         {/* Total Count Display */}
         <div className="text-center bg-card rounded-lg p-4 border border-border">
-          <div className="text-sm text-muted-foreground mb-1">Today's Total</div>
+          <div className="text-sm text-muted-foreground mb-1">{t('todaysTotal')}</div>
           <div className="text-2xl font-semibold text-foreground" data-testid="today-total">
             {data.todayTotal.toLocaleString()}
           </div>
-          <div className="text-xs text-muted-foreground mt-1">All Dhikr Combined</div>
+          <div className="text-xs text-muted-foreground mt-1">{t('allDhikrCombined')}</div>
         </div>
       </main>
 

@@ -23,6 +23,7 @@ export function useCounterStorage() {
       streakDays: 0,
       weekTotal: 0,
       allTimeTotal: 0,
+      settings: { language: 'en', theme: 'light' },
     };
   });
 
@@ -83,11 +84,22 @@ export function useCounterStorage() {
     }));
   };
 
+  const updateSettings = (newSettings: Partial<typeof data.settings>) => {
+    setData(prev => ({
+      ...prev,
+      settings: {
+        ...prev.settings,
+        ...newSettings,
+      },
+    }));
+  };
+
   return {
     data,
     incrementCounter,
     resetCounter,
     setCurrentDhikr,
     nextSet,
+    updateSettings,
   };
 }

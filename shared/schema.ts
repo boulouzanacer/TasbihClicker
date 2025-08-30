@@ -10,6 +10,11 @@ export const dhikrSchema = z.object({
   targetCount: z.number().min(1).default(33),
 });
 
+export const settingsSchema = z.object({
+  language: z.enum(['en', 'ar']).default('en'),
+  theme: z.enum(['light', 'dark']).default('light'),
+});
+
 export const counterDataSchema = z.object({
   counters: z.record(dhikrSchema),
   currentDhikr: z.string(),
@@ -18,6 +23,7 @@ export const counterDataSchema = z.object({
   weekTotal: z.number().min(0).default(0),
   allTimeTotal: z.number().min(0).default(0),
   lastUsedDate: z.string().optional(),
+  settings: settingsSchema.default({ language: 'en', theme: 'light' }),
 });
 
 export const duaSchema = z.object({
@@ -33,6 +39,7 @@ export const duaSchema = z.object({
 export type Dhikr = z.infer<typeof dhikrSchema>;
 export type CounterData = z.infer<typeof counterDataSchema>;
 export type Dua = z.infer<typeof duaSchema>;
+export type Settings = z.infer<typeof settingsSchema>;
 
 export const defaultDhikrs: Record<string, Dhikr> = {
   subhanallah: {
