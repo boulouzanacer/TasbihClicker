@@ -1,6 +1,6 @@
 import { Settings, Moon, Sun, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { useTheme } from "@/hooks/use-theme";
 import { useTranslation } from "@/hooks/use-translation";
 import { cn } from "@/lib/utils";
@@ -35,6 +35,9 @@ export function SettingsModal({ trigger }: SettingsModalProps) {
             <Settings className="w-5 h-5" />
             <span>{t('settings')}</span>
           </DialogTitle>
+          <DialogDescription>
+            Customize your app appearance and language preferences
+          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-6 py-4">

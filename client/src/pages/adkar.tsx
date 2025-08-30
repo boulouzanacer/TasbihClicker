@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp, BookOpen } from "lucide-react";
 import { defaultDuas, Dua } from "@shared/schema";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/hooks/use-translation";
 
 interface DuaCardProps {
   dua: Dua;
@@ -10,6 +11,7 @@ interface DuaCardProps {
 }
 
 function DuaCard({ dua, isExpanded, onToggle }: DuaCardProps) {
+  const { t } = useTranslation();
   return (
     <div className="bg-card border border-border rounded-lg p-4 mb-3">
       <button
@@ -36,13 +38,14 @@ function DuaCard({ dua, isExpanded, onToggle }: DuaCardProps) {
             <p 
               className="text-xl text-foreground leading-relaxed font-arabic" 
               data-testid={`dua-arabic-${dua.id}`}
+              dir="rtl"
             >
               {dua.arabic}
             </p>
           </div>
           
           <div>
-            <h4 className="text-sm font-medium text-muted-foreground mb-1">Transliteration</h4>
+            <h4 className="text-sm font-medium text-muted-foreground mb-1">{t('transliteration')}</h4>
             <p 
               className="text-sm text-foreground italic" 
               data-testid={`dua-transliteration-${dua.id}`}
@@ -52,7 +55,7 @@ function DuaCard({ dua, isExpanded, onToggle }: DuaCardProps) {
           </div>
           
           <div>
-            <h4 className="text-sm font-medium text-muted-foreground mb-1">Translation</h4>
+            <h4 className="text-sm font-medium text-muted-foreground mb-1">{t('translation')}</h4>
             <p 
               className="text-sm text-foreground" 
               data-testid={`dua-translation-${dua.id}`}
@@ -76,6 +79,7 @@ interface CategorySectionProps {
 }
 
 function CategorySection({ title, duas, isExpanded, onToggle, expandedDuas, onDuaToggle }: CategorySectionProps) {
+  const { t } = useTranslation();
   const getCategoryIcon = (categoryKey: string) => {
     const icons: Record<string, JSX.Element> = {
       travel: <span className="text-lg">✈️</span>,
@@ -87,13 +91,13 @@ function CategorySection({ title, duas, isExpanded, onToggle, expandedDuas, onDu
   };
 
   const formatCategoryTitle = (key: string) => {
-    const titles: Record<string, string> = {
-      travel: 'Travel',
-      hardship: 'Hardship & Relief',
-      sleep: 'Before Sleep',
-      morning: 'Morning Dhikr',
+    const titleKeys: Record<string, string> = {
+      travel: 'travel',
+      hardship: 'hardshipRelief',
+      sleep: 'beforeSleep',
+      morning: 'morningDhikr',
     };
-    return titles[key] || key.charAt(0).toUpperCase() + key.slice(1);
+    return t(titleKeys[key] as any) || key.charAt(0).toUpperCase() + key.slice(1);
   };
 
   return (
@@ -134,6 +138,7 @@ function CategorySection({ title, duas, isExpanded, onToggle, expandedDuas, onDu
 export default function Adkar() {
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
   const [expandedDuas, setExpandedDuas] = useState<Set<string>>(new Set());
+  const { t } = useTranslation();
 
   const toggleCategory = (category: string) => {
     setExpandedCategories(prev => {
@@ -164,7 +169,7 @@ export default function Adkar() {
       {/* Header */}
       <header className="bg-card shadow-sm border-b border-border px-4 py-4">
         <div className="flex items-center justify-center">
-          <h1 className="text-xl font-semibold text-foreground">Adkar & Supplications</h1>
+          <h1 className="text-xl font-semibold text-foreground">{t('adkarTitle')}</h1>
         </div>
       </header>
 
@@ -172,7 +177,7 @@ export default function Adkar() {
       <main className="px-4 py-6 max-w-md mx-auto">
         <div className="mb-6 text-center">
           <p className="text-sm text-muted-foreground">
-            Collection of authentic supplications (duas) for various situations
+            {t('adkarSubtitle')}
           </p>
         </div>
 
