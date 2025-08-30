@@ -40,7 +40,7 @@ export function TasbihCounter() {
   const completedIndicators = Math.floor((progressPercentage / 100) * 4);
 
   return (
-    <div className="min-h-screen flex flex-col max-w-md mx-auto bg-background">
+    <div className="min-h-screen flex flex-col max-w-md mx-auto bg-background pb-16">
       {/* Header */}
       <header className="bg-card shadow-sm border-b border-border px-4 py-4">
         <div className="flex items-center justify-between">
