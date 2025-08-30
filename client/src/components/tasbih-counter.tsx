@@ -53,7 +53,7 @@ export function TasbihCounter() {
 
       {/* Tab Navigation */}
       <nav className="bg-card border-b border-border px-4">
-        <div className="flex space-x-1 overflow-x-auto">
+        <div className="flex gap-1 overflow-x-auto" dir="ltr">
           {dhikrEntries.map(([id, dhikr]) => (
             <DhikrTab
               key={id}
@@ -70,7 +70,7 @@ export function TasbihCounter() {
       <main className="flex-1 flex flex-col justify-center px-4 py-8">
         {/* Current Dhikr Display */}
         <div className="text-center mb-8 fade-in">
-          <h2 className="text-2xl font-semibold text-foreground mb-2" data-testid="dhikr-arabic">
+          <h2 className="text-2xl font-semibold text-foreground mb-2 font-arabic" data-testid="dhikr-arabic" dir="rtl">
             {currentDhikrData.arabic}
           </h2>
           <p className="text-lg text-muted-foreground mb-1" data-testid="dhikr-translation">
@@ -93,7 +93,7 @@ export function TasbihCounter() {
           </div>
           
           {/* Progress Indicators */}
-          <div className="flex justify-center space-x-2 mb-4">
+          <div className="flex justify-center gap-2 mb-4" dir="ltr">
             {[0, 1, 2, 3].map((index) => (
               <div
                 key={index}
@@ -131,7 +131,7 @@ export function TasbihCounter() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-center space-x-4 mb-8">
+        <div className="flex justify-center gap-4 mb-8" dir="ltr">
           <button 
             data-testid="reset-button"
             onClick={handleResetClick}
