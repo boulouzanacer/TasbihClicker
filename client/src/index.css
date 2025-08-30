@@ -172,54 +172,31 @@
   }
 }
 
-/* RTL support */
+/* RTL support - simplified and safer approach */
 html[dir="rtl"] {
+  direction: rtl;
+}
+
+/* Keep main layout containers in normal flow */
+html[dir="rtl"] .min-h-screen,
+html[dir="rtl"] .flex-col,
+html[dir="rtl"] .flex-1,
+html[dir="rtl"] main {
+  direction: ltr;
+}
+
+/* Only apply RTL to text content that needs it */
+html[dir="rtl"] .font-arabic {
+  direction: rtl;
   text-align: right;
+  font-family: 'Amiri', 'Traditional Arabic', 'Noto Sans Arabic', 'Tahoma', sans-serif;
+  line-height: 1.8;
 }
 
-/* Don't reverse main flex containers */
-html[dir="rtl"] .flex:not(.space-x-1):not(.space-x-2):not(.space-x-3):not(.space-x-4):not(.justify-between) {
-  flex-direction: row-reverse;
-}
-
-/* Keep header flex normal for proper icon/title alignment */
-html[dir="rtl"] .justify-between {
-  flex-direction: row;
-}
-
-/* Fix space-x classes for RTL */
-html[dir="rtl"] .space-x-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 1;
-  margin-right: calc(0.25rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-html[dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 1;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-html[dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 1;
-  margin-right: calc(0.75rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-html[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 1;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-/* Fix text alignment for center elements */
-html[dir="rtl"] .text-center {
-  text-align: center;
-}
-
-/* Ensure flex columns stay normal in RTL */
-html[dir="rtl"] .flex-col {
-  flex-direction: column;
+/* Keep all flex containers in LTR except specific ones */
+html[dir="rtl"] .flex,
+html[dir="rtl"] .inline-flex {
+  direction: ltr;
 }
 
 /* Keep grid layouts unchanged */
@@ -227,21 +204,15 @@ html[dir="rtl"] .grid {
   direction: ltr;
 }
 
-html[dir="rtl"] .grid-cols-3 {
+/* Keep centered content centered */
+html[dir="rtl"] .text-center {
+  text-align: center;
   direction: ltr;
 }
 
-/* Fix Arabic font rendering */
-html[dir="rtl"] .font-arabic,
-html[dir="rtl"] [lang="ar"] {
-  font-family: 'Amiri', 'Traditional Arabic', 'Noto Sans Arabic', 'Tahoma', sans-serif;
-  line-height: 1.8;
-  text-align: right;
-}
-
-/* Override specific elements that should maintain LTR behavior */
-html[dir="rtl"] .counter-button,
-html[dir="rtl"] .rounded-full,
-html[dir="rtl"] .text-center .inline-flex {
+/* Keep navigation and buttons in LTR */
+html[dir="rtl"] nav,
+html[dir="rtl"] button,
+html[dir="rtl"] .fixed {
   direction: ltr;
 }

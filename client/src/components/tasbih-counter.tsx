@@ -42,7 +42,7 @@ export function TasbihCounter() {
   const completedIndicators = Math.floor((progressPercentage / 100) * 4);
 
   return (
-    <div className="min-h-screen flex flex-col max-w-md mx-auto bg-background pb-16">
+    <div className="min-h-screen flex flex-col max-w-md mx-auto bg-background pb-16" dir="ltr">
       {/* Header */}
       <header className="bg-card shadow-sm border-b border-border px-4 py-4">
         <div className="flex items-center justify-between">
@@ -53,7 +53,7 @@ export function TasbihCounter() {
 
       {/* Tab Navigation */}
       <nav className="bg-card border-b border-border px-4">
-        <div className="flex gap-1 overflow-x-auto" dir="ltr">
+        <div className="flex gap-1 overflow-x-auto">
           {dhikrEntries.map(([id, dhikr]) => (
             <DhikrTab
               key={id}
@@ -93,7 +93,7 @@ export function TasbihCounter() {
           </div>
           
           {/* Progress Indicators */}
-          <div className="flex justify-center gap-2 mb-4" dir="ltr">
+          <div className="flex justify-center gap-2 mb-4">
             {[0, 1, 2, 3].map((index) => (
               <div
                 key={index}
@@ -131,7 +131,7 @@ export function TasbihCounter() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-center gap-4 mb-8" dir="ltr">
+        <div className="flex justify-center gap-4 mb-8">
           <button 
             data-testid="reset-button"
             onClick={handleResetClick}
